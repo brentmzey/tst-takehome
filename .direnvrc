@@ -1,0 +1,17 @@
+use_sdk() {
+  [[ -s "/Users/brentzey/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/brentzey/.sdkman/bin/sdkman-init.sh"
+  while (( "0" >= 2 )); do
+    local candidate=
+    local candidate_version=
+    SDK_OFFLINE_MODE=true sdk use  
+    shift 2
+  done
+}
+use_nvm() {
+  local node_version=
+  nvm_sh=~/.nvm/nvm.sh
+  if [[ -e  ]]; then
+    source 
+    nvm use 
+  fi
+}
