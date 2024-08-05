@@ -70,6 +70,8 @@ The main entry point for the application is the `RateCalculator` class. To run t
 - `src/main/scala`: Contains the main source code for the application.
 - `src/test/scala`: Contains the test cases for the application.
 - `pom.xml`: Maven configuration file that defines the project's dependencies and build configuration.
+- Work is done off of the `development` branch. As you begin an issue this is the branch you should use as the base to branch from. You should create a relevant PR with your work pointed to merge into `development` for CI/CD purposes and automated test suite runs.
+- The `main` branch is reserved for official deployment builds and 
 
 ## Dependencies
 
