@@ -35,6 +35,13 @@ To build the application, follow these steps:
 
    I really advocate using [direnv](https://direnv.net/) to manage SDKMan and NVM installs with a `.envrc` in a project root. To get the most out of `direnv`, create and add the following to a `~/.direnvrc`
    file, either `~/.direnv` or `~/.config/direnv/direnvrc` i.e.:
+   If on MacOs, you can install direnv via Homebrew. Other OS, [see the direnv installation page.](https://direnv.net/docs/installation.html)
+
+   ```shell
+   brew install direnv
+   ```
+
+   Then add your `.direnvrc` and `.envrc` files:
 
    ```shell
    cat /dev/null > ./.direnvrc
