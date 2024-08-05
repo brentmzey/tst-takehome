@@ -36,4 +36,17 @@ object CoreConstants {
     }
   }
 
+  object PromotionConstants extends Enumeration {
+    type PromotionCode = Value
+    val P1 = Value("P1")
+    val P2 = Value("P2")
+    val P3 = Value("P3")
+    val P4 = Value("P4")
+    val P5 = Value("P5")
+
+    def withNameOpt(s: String): Option[PromotionCode] = {
+      Try(withName(s.toUpperCase)).toOption
+    }
+  }
+
 }

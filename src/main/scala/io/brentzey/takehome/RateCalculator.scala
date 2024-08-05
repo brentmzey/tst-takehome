@@ -1,20 +1,36 @@
 package io.brentzey.takehome
 
-import io.brentzey.takehome.models.{BestGroupPrice, CabinPrice, Rate}
-import io.brentzey.takehome.seed.BestGroupPriceSeedData
+import io.brentzey.takehome.calculators.{BestCabinGroupPriceCalculator, PromotionComboCalculator}
+import io.brentzey.takehome.logging.{Logging, Startup}
+import io.brentzey.takehome.seed.{BestGroupPriceSeedData, PromotionCombinationsSeedData}
 
 /**
- * App entrypoint
+ * The RateCalculator object serves as the entry point for the application.
+ * It initializes the seed data and calculators, and logs the results of the calculations.
  */
-object RateCalculator extends App {
+object RateCalculator extends App with Logging with Startup {
 
   private val bestGroupPriceSeedData = BestGroupPriceSeedData
+  private val promotionComboSeedData = PromotionCombinationsSeedData
+  private val bestCabinGroupPriceCalulator = BestCabinGroupPriceCalculator
+  private val promotionComboCalculator = PromotionComboCalculator
 
-  def getBestGroupPrices(rates: Seq[Rate],
-                         prices: Seq[CabinPrice]): Seq[BestGroupPrice] = {
-    bestGroupPriceSeedData.expectedOutput
-  }
+  private val bestCabinGroupPrices = bestCabinGroupPriceCalulator
+    .getBestGroupPrices(bestGroupPriceSeedData.inputRates, bestGroupPriceSeedData.inputCabinPrices)
 
-  println( "Hello World!" )
+  private val allCombinablePromos = promotionComboCalculator
+    .allCombinablePromotions(promotionComboSeedData.allInputPromotions)
+  private val p1AllCombinablePromos = promotionComboCalculator
+    .combinablePromotions(promotionComboSeedData.promo1.code, promotionComboSeedData.allInputPromotions)
 
+  logger.info(rateBootLogo)
+  logger.info(s"Best cabin group prices actual: $bestCabinGroupPrices")
+  logger.info(s"Best cabin group prices expected: ${bestGroupPriceSeedData.expectedOutput}")
+  logger.info("/* -- */ ....................................................... /* -- */")
+  logger.info(promoBootLogo)
+  logger.info(s"All input Promotions: ${promotionComboSeedData.allInputPromotions}")
+  logger.info(s"Expected output PromotionCombos: ${promotionComboSeedData.expectedOutputForAllCombos}")
+  logger.info(s"All combos: $allCombinablePromos")
+  logger.info(s"All combos given input P1: $p1AllCombinablePromos")
+  logger.info(s"Expected combos given input P1: ${promotionComboSeedData.expectedOutputForP1}")
 }
