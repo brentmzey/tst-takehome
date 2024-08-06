@@ -17,6 +17,7 @@
 
     <!-- PLUGINS -->
     <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
+    <maven.javadoc.plugin.version>3.8.0</maven.javadoc.plugin.version>
     <maven.surefire.plugin.version>2.6</maven.surefire.plugin.version>
     <scala.maven.plugin.version>3.3.2</scala.maven.plugin.version>
     <scalatest.maven.plugin.version>2.2.0</scalatest.maven.plugin.version>
@@ -67,9 +68,11 @@
         <version>${scala.maven.plugin.version}</version>
         <executions>
           <execution>
+            <id>execution-goals</id>
             <goals>
               <goal>compile</goal>
               <goal>testCompile</goal>
+              <goal>doc-jar</goal>
             </goals>
             <configuration>
               <args>
@@ -161,6 +164,15 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>${maven.javadoc.plugin.version}</version>
+        <configuration>
+          <show>private</show>
+          <nohelp>true</nohelp>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
