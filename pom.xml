@@ -93,9 +93,6 @@
                 <!--<arg>-Ywarn-unused-import</arg>-->
                 <!--<arg>-Ytyper-debug</arg>-->
                 <!--<arg>-Ylog:all</arg>-->
-                <arg>
-                  ${project.build.directory}/.scala_dependencies
-                </arg>
                 <!-- ONLY REAL WIZARDS VENTURE HERE -->
                 <!--<arg>-Xfatal-warnings</arg>-->
               </args>
@@ -174,21 +171,21 @@
           <nohelp>true</nohelp>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>${maven.surefire.plugin.version}</version>
-        <configuration>
-          <useFile>false</useFile>
-          <disableXmlReport>true</disableXmlReport>
-          <!-- If you have classpath issue like NoDefClassError,... -->
-          <!-- useManifestOnlyJar>false</useManifestOnlyJar -->
-          <includes>
-            <include>**/*Test.*</include>
-            <include>**/*Suite.*</include>
-          </includes>
-        </configuration>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-surefire-plugin</artifactId>-->
+<!--        <version>${maven.surefire.plugin.version}</version>-->
+<!--        <configuration>-->
+<!--          <useFile>false</useFile>-->
+<!--          <disableXmlReport>true</disableXmlReport>-->
+<!--          &lt;!&ndash; If you have classpath issue like NoDefClassError,... &ndash;&gt;-->
+<!--          &lt;!&ndash; useManifestOnlyJar>false</useManifestOnlyJar &ndash;&gt;-->
+<!--          <includes>-->
+<!--            <include>**/*Test.*</include>-->
+<!--            <include>**/*Suite.*</include>-->
+<!--          </includes>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
     </plugins>
   </build>
 </project>
