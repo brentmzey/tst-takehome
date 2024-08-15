@@ -1,6 +1,7 @@
 package io.brentzey.takehome.groupprice
 
-import io.brentzey.takehome.calculators.BestCabinGroupPriceCalculator
+import io.brentzey.takehome.calculators.BestCabinGroupPriceCalculatorService
+import io.brentzey.takehome.models.{BestGroupPrice, CabinPrice, Rate}
 import io.brentzey.takehome.seed.BestGroupPriceSeedData
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -11,14 +12,16 @@ import org.scalatest.matchers.should.Matchers
  */
 class BestGroupPriceSpec extends AnyFlatSpec with Matchers {
 
-  val bestGroupPriceData = BestGroupPriceSeedData
+  private val cabinGroupPriceCalculator = BestCabinGroupPriceCalculatorService
 
-  val rates = bestGroupPriceData.inputRates
-  val cabinPrices = bestGroupPriceData.inputCabinPrices
-  val expectedOutput = bestGroupPriceData.expectedOutput
+  val bestGroupPriceData: BestGroupPriceSeedData.type = BestGroupPriceSeedData
+
+  val rates: Seq[Rate] = bestGroupPriceData.inputRates
+  val cabinPrices: Seq[CabinPrice] = bestGroupPriceData.inputCabinPrices
+  val expectedOutput: Seq[BestGroupPrice] = bestGroupPriceData.expectedOutput
 
   it should "Verify expected best cabin prices are output from running the calculator" in {
-    val actualOutput = BestCabinGroupPriceCalculator.getBestGroupPrices(rates, cabinPrices)
+    val actualOutput = cabinGroupPriceCalculator.getBestGroupPrices(rates, cabinPrices)
     println(s"Actual output: $actualOutput")
     assertResult(expectedOutput)(actualOutput)
   }

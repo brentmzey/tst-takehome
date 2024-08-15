@@ -1,6 +1,6 @@
 package io.brentzey.takehome
 
-import io.brentzey.takehome.calculators.{BestCabinGroupPriceCalculator, PromotionComboCalculator}
+import io.brentzey.takehome.calculators.{BestCabinGroupPriceCalculatorService, PromotionComboCalculatorService}
 import io.brentzey.takehome.logging.{Logging, Startup}
 import io.brentzey.takehome.seed.{BestGroupPriceSeedData, PromotionCombinationsSeedData}
 
@@ -12,15 +12,15 @@ object RateCalculator extends App with Logging with Startup {
 
   private val bestGroupPriceSeedData = BestGroupPriceSeedData
   private val promotionComboSeedData = PromotionCombinationsSeedData
-  private val bestCabinGroupPriceCalulator = BestCabinGroupPriceCalculator
-  private val promotionComboCalculator = PromotionComboCalculator
+  private val bestCabinGroupPriceCalulator = BestCabinGroupPriceCalculatorService
+  private val promotionComboCalculator = PromotionComboCalculatorService
 
-  private val bestCabinGroupPrices = bestCabinGroupPriceCalulator
+  protected val bestCabinGroupPrices = bestCabinGroupPriceCalulator
     .getBestGroupPrices(bestGroupPriceSeedData.inputRates, bestGroupPriceSeedData.inputCabinPrices)
 
-  private val allCombinablePromos = promotionComboCalculator
+  protected val allCombinablePromos = promotionComboCalculator
     .allCombinablePromotions(promotionComboSeedData.allInputPromotions)
-  private val p1AllCombinablePromos = promotionComboCalculator
+  protected val p1AllCombinablePromos = promotionComboCalculator
     .combinablePromotions(promotionComboSeedData.promo1.code, promotionComboSeedData.allInputPromotions)
 
   logger.info(rateBootLogo)

@@ -8,7 +8,7 @@ import io.brentzey.takehome.models.{Promotion, PromotionCombo}
  * The PromotionComboCalculator class is responsible for calculating all valid combinations of promotions
  * and determining which promotions can be combined with a given promotion.
  */
-trait PromotionComboCalculator extends Logging {
+trait PromotionComboCalculatorService extends Logging {
 
   /**
    * Calculates all valid combinations of promotions.
@@ -63,4 +63,4 @@ trait PromotionComboCalculator extends Logging {
   }
 }
 
-object PromotionComboCalculator extends PromotionComboCalculator
+object PromotionComboCalculatorService extends PromotionComboCalculatorService

@@ -1,6 +1,6 @@
 package io.brentzey.takehome.promocode
 
-import io.brentzey.takehome.calculators.PromotionComboCalculator
+import io.brentzey.takehome.calculators.PromotionComboCalculatorService
 import io.brentzey.takehome.logging.Logging
 import io.brentzey.takehome.seed.PromotionCombinationsSeedData
 import org.scalatest.flatspec.AnyFlatSpec
@@ -14,7 +14,7 @@ class PromotionComboSpec extends AnyFlatSpec with Matchers with Logging {
 
   private val promotionComboData = PromotionCombinationsSeedData
   private val allInputPromotions = promotionComboData.allInputPromotions
-  private val promotionComboCalculator = PromotionComboCalculator
+  private val promotionComboCalculator = PromotionComboCalculatorService
 
   it should "Test allInputPromotions and give proper, expected output" in {
     val allCombosActualResult = promotionComboCalculator.allCombinablePromotions(allInputPromotions)

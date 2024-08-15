@@ -7,7 +7,7 @@ import io.brentzey.takehome.models.{BestGroupPrice, CabinPrice, Rate}
  * The BestCabinGroupPriceCalculator class is responsible for calculating the best group prices
  * for cabins based on the provided rates and cabin prices.
  */
-trait BestCabinGroupPriceCalculator extends Logging {
+trait BestCabinGroupPriceCalculatorService extends Logging {
 
   /**
    * Calculates the best group prices for cabins.
@@ -41,4 +41,4 @@ trait BestCabinGroupPriceCalculator extends Logging {
 
 }
 
-object BestCabinGroupPriceCalculator extends BestCabinGroupPriceCalculator
+object BestCabinGroupPriceCalculatorService extends BestCabinGroupPriceCalculatorService

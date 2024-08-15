@@ -13,7 +13,8 @@
     <scala.language.version>2.12.12</scala.language.version>
     <scala.language.version.prefix>2.12</scala.language.version.prefix>
 
-    <main.class>io.brentzey.takehome.RateCalculator</main.class>
+    <!-- <main.class>io.brentzey.takehome.RateCalculator</main.class>--> <!-- IF YOU WANT A STANDALONE APPLICATION -->
+    <main.class>io.brentzey.takehome.TstServer</main.class> <!-- IF YOU WANT AN HTTP APPLICATION -->
 
     <!-- PLUGINS -->
     <maven-shade-plugin.version>3.2.4</maven-shade-plugin.version>
@@ -23,6 +24,13 @@
     <scalatest.maven.plugin.version>2.2.0</scalatest.maven.plugin.version>
 
     <!-- DEPENDENCY VERSIONS -->
+    <!-- HTTP4S -->
+    <http4s.dsl.version>0.23.6</http4s.dsl.version>
+    <http4s.blaze.server.version>0.23.6</http4s.blaze.server.version>
+    <http4s.circe.version>0.23.6</http4s.circe.version>
+    <!-- CIRCE -->
+    <circe.generic.version>0.14.1</circe.generic.version>
+    <circe.parser.version>0.14.1</circe.parser.version>
     <!-- LOGBACK -->
     <logback.version>1.4.14</logback.version>
     <!-- SCALATEST -->
@@ -30,16 +38,45 @@
   </properties>
 
   <dependencies>
+    <!-- HTTP4S -->
     <dependency>
-      <groupId>org.scala-lang</groupId>
-      <artifactId>scala-library</artifactId>
-      <version>${scala.language.version}</version>
+      <groupId>org.http4s</groupId>
+      <artifactId>http4s-dsl_${scala.language.version.prefix}</artifactId>
+      <version>${http4s.dsl.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.http4s</groupId>
+      <artifactId>http4s-blaze-server_${scala.language.version.prefix}</artifactId>
+      <version>${http4s.blaze.server.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.http4s</groupId>
+      <artifactId>http4s-circe_${scala.language.version.prefix}</artifactId>
+      <version>${http4s.circe.version}</version>
+    </dependency>
+
+    <!-- CIRCE -->
+    <dependency>
+      <groupId>io.circe</groupId>
+      <artifactId>circe-generic_${scala.language.version.prefix}</artifactId>
+      <version>${circe.generic.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.circe</groupId>
+      <artifactId>circe-parser_${scala.language.version.prefix}</artifactId>
+      <version>${circe.parser.version}</version>
     </dependency>
     <!-- LOGBACK -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
+    </dependency>
+    <!-- SCALA -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.language.version}</version>
     </dependency>
 
     <!-- TESTING -->
