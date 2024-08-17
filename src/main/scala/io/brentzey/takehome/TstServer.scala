@@ -3,7 +3,7 @@ package io.brentzey.takehome
 import cats.effect._
 import io.brentzey.takehome.calculators.{BestCabinGroupPriceCalculatorService, PromotionComboCalculatorService}
 import io.brentzey.takehome.logging.Logging
-import io.brentzey.takehome.models.codec.{AutoCodec, TstCodec}
+import io.brentzey.takehome.models.codec.AutoCodec
 import org.http4s._
 import org.http4s.dsl.io._
 import org.http4s.implicits._
@@ -14,7 +14,7 @@ import io.brentzey.takehome.models.codec.TstCodec._
 import io.brentzey.takehome.models.{AllCombinablePromotionsInput, CombinablePromotionsInput, RateCalculationInput}
 import org.http4s.server.Router
 
-import scala.concurrent.ExecutionContext.global
+import scala.concurrent.duration.DurationInt
 
 object TstServer extends IOApp with Logging with AutoCodec {
 
@@ -26,7 +26,9 @@ object TstServer extends IOApp with Logging with AutoCodec {
     case req @ POST -> Root / "rate-calculator" => {
       req.decode[RateCalculationInput] { input =>
         val bestCabinGroupPrices = cabinGroupPriceCalculatorService.getBestGroupPrices(input.rates, input.cabinPrices)
-        Ok(bestCabinGroupPrices.asJson)
+        val response = bestCabinGroupPrices.asJson
+        logger.info(s"Rate Calculator Response: $response")
+        Ok(response)
       }
     }
   }
@@ -36,13 +38,17 @@ object TstServer extends IOApp with Logging with AutoCodec {
     case req @ POST -> Root / "all-combinable-promotions" => {
       req.decode[AllCombinablePromotionsInput] { input =>
         val allCombinablePromotions = promotionComboCalculatorService.allCombinablePromotions(input.allPromotions)
-        Ok(allCombinablePromotions.asJson)
+        val response = allCombinablePromotions.asJson
+        logger.info(s"All Combinable Promotions Response: $response")
+        Ok(response)
       }
     }
     case req @ POST -> Root / "combinable-promotions" => {
       req.decode[CombinablePromotionsInput] { input =>
         val combinablePromotions = promotionComboCalculatorService.combinablePromotions(input.promotionCode, input.allPromotions)
-        Ok(combinablePromotions.asJson)
+        val response = combinablePromotions.asJson
+        logger.info(s"Combinable Promotions Response: $response")
+        Ok(response)
       }
     }
   }
@@ -54,9 +60,12 @@ object TstServer extends IOApp with Logging with AutoCodec {
   ).orNotFound
 
   def run(args: List[String]): IO[ExitCode] = {
-    BlazeServerBuilder[IO](global)
+//    BlazeServerBuilder[IO](global)
+    BlazeServerBuilder[IO]
       .bindHttp(8080, "0.0.0.0")
       .withHttpApp(httpApp)
+      .withConnectorPoolSize(8)
+      .withIdleTimeout(120.seconds)
       .serve
       .compile
       .drain
